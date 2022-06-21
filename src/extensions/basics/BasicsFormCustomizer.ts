@@ -24,15 +24,8 @@ export default class BasicsFormCustomizer extends BaseFormCustomizer<IBasicsForm
   // item's etag to ensure integrity of the update; used with edit form
   private _etag?: string;
 
-  // temporary workaround to retrieve form type as it's not available
-  // in onInit
-  private _getPageType(): FormDisplayMode {
-    const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
-    return parseInt(searchParams.get('PageType'));
-  }
-
   public onInit(): Promise<void> {
-    if (this._getPageType() === FormDisplayMode.New) {
+    if (this.displayMode === FormDisplayMode.New) {
       // we're creating a new item so nothing to load
       return Promise.resolve();
     }
